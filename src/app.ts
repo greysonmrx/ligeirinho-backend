@@ -1,11 +1,13 @@
 import express, { Express } from 'express';
 
 import routes from './routes';
+import createConnection from './database';
 
 class App {
   public server: Express;
 
   constructor() {
+    createConnection();
     this.server = express();
 
     this.middlewares();
