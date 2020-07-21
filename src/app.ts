@@ -1,7 +1,9 @@
-import express, { Express } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
+import 'express-async-errors';
 
 import routes from './routes';
 import createConnection from './database';
+import AppError from './errors/AppError';
 
 class App {
   public server: Express;
@@ -12,6 +14,7 @@ class App {
 
     this.middlewares();
     this.routes();
+    this.exceptionHandler();
   }
 
   private middlewares(): void {
@@ -20,6 +23,29 @@ class App {
 
   private routes(): void {
     this.server.use(routes);
+  }
+
+  private exceptionHandler(): void {
+    this.server.use(
+      (
+        err: Error,
+        request: Request,
+        response: Response,
+        _next: NextFunction,
+      ) => {
+        if (err instanceof AppError) {
+          return response.status(err.statusCode).json({
+            status: 'error',
+            message: err.message,
+          });
+        }
+
+        return response.status(500).json({
+          status: 'error',
+          message: 'Erro interno do servidor.',
+        });
+      },
+    );
   }
 }
 
