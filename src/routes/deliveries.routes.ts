@@ -10,5 +10,6 @@ const deliveriesController = new DeliveriesController();
 deliveriesRouter.use(ensureAuthenticated);
 deliveriesRouter.post('/', deliveriesController.store);
 deliveriesRouter.delete('/:id', deliveriesController.destroy);
+deliveriesRouter.put('/:id', deliveriesController.update);
 
 export default deliveriesRouter;

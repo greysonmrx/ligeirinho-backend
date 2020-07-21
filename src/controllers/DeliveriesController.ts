@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import DeleteDeliveryService from '../services/DeleteDeliveryService';
 import CreateDeliveryService from '../services/CreateDeliveryService';
+import UpdateDeliveryService from '../services/UpdateDeliveryService';
 
 class DeliveriesController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -16,6 +17,22 @@ class DeliveriesController {
     });
 
     return response.status(201).json(delivery);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { product, recipient_id, deliveryman_id } = request.body;
+    const { id } = request.params;
+
+    const updateDeliveries = new UpdateDeliveryService();
+
+    const delivery = await updateDeliveries.execute({
+      id,
+      product,
+      recipient_id,
+      deliveryman_id,
+    });
+
+    return response.status(200).json(delivery);
   }
 
   public async destroy(
