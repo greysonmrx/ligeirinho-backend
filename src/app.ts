@@ -14,11 +14,11 @@ class App {
     this.routes();
   }
 
-  private middlewares() {
+  private middlewares(): void {
     this.server.use(express.json());
   }
 
-  private routes() {
+  private routes(): void {
     this.server.use(routes);
   }
 }
