@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import DeleteDeliveryService from '../services/DeleteDeliveryService';
 import CreateDeliveryService from '../services/CreateDeliveryService';
 
 class DeliveriesController {
@@ -15,6 +16,19 @@ class DeliveriesController {
     });
 
     return response.status(201).json(delivery);
+  }
+
+  public async destroy(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+
+    const deleteDeliveries = new DeleteDeliveryService();
+
+    await deleteDeliveries.execute(id);
+
+    return response.status(204).json();
   }
 }
 
