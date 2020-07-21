@@ -1,10 +1,19 @@
 import { Request, Response } from 'express';
 
+import ListDeliveryService from '../services/ListDeliveryService';
 import DeleteDeliveryService from '../services/DeleteDeliveryService';
 import CreateDeliveryService from '../services/CreateDeliveryService';
 import UpdateDeliveryService from '../services/UpdateDeliveryService';
 
 class DeliveriesController {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const listDeliveries = new ListDeliveryService();
+
+    const deliveries = await listDeliveries.execute();
+
+    return response.status(200).json(deliveries);
+  }
+
   public async store(request: Request, response: Response): Promise<Response> {
     const { product, recipient_id, deliveryman_id } = request.body;
 
