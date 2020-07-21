@@ -8,6 +8,7 @@ const deliverymanRouter = Router();
 const deliverymanController = new DeliverymanController();
 
 deliverymanRouter.use(ensureAuthenticated);
+deliverymanRouter.get('/', deliverymanController.index);
 deliverymanRouter.post('/', deliverymanController.store);
 
 export default deliverymanRouter;
