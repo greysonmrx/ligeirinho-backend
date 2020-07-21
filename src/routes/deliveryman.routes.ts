@@ -11,5 +11,6 @@ deliverymanRouter.use(ensureAuthenticated);
 deliverymanRouter.get('/', deliverymanController.index);
 deliverymanRouter.post('/', deliverymanController.store);
 deliverymanRouter.delete('/:id', deliverymanController.destroy);
+deliverymanRouter.put('/:id', deliverymanController.update);
 
 export default deliverymanRouter;

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import UpdateDeliverymanService from '../services/UpdateDeliverymanService';
 import DeleteDeliverymanService from '../services/DeleteDeliverymanService';
 import CreateDeliverymanService from '../services/CreateDeliverymanService';
 import ListDeliverymanService from '../services/ListDeliverymanService';
@@ -25,6 +26,22 @@ class DeliverymanController {
     });
 
     return response.status(201).json(deliveryman);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { name, email, avatar_id } = request.body;
+    const { id } = request.params;
+
+    const updateDeliveryman = new UpdateDeliverymanService();
+
+    const deliveryman = await updateDeliveryman.execute({
+      id,
+      name,
+      email,
+      avatar_id,
+    });
+
+    return response.status(200).json(deliveryman);
   }
 
   public async destroy(
