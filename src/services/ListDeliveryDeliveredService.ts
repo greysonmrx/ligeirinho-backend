@@ -1,4 +1,4 @@
-import { getCustomRepository, Not } from 'typeorm';
+import { getCustomRepository, Not, IsNull } from 'typeorm';
 
 import AppError from '../errors/AppError';
 import Delivery from '../models/Delivery';
@@ -18,7 +18,7 @@ class ListDeliveryDeliveredService {
     const deliveriesRepository = getCustomRepository(DeliveriesRepository);
 
     const deliveries = await deliveriesRepository.find({
-      where: { deliveryman_id: id, signature_id: Not(null) },
+      where: { deliveryman_id: id, signature_id: Not(IsNull()) },
       relations: ['recipient', 'deliveryman', 'signature'],
     });
 

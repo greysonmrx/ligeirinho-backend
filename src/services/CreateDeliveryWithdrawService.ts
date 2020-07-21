@@ -61,7 +61,11 @@ class CreateDeliveryWithdrawService {
       );
     }
 
-    await deliveriesRepository.save({ ...delivery, status: 'RETIRADA' });
+    await deliveriesRepository.save({
+      ...delivery,
+      start_date,
+      status: 'RETIRADA',
+    });
   }
 }
 
