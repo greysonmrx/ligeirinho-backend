@@ -5,13 +5,39 @@ import CreateDeliveryManService from '../../services/deliverymen/CreateDeliveryM
 import UpdateDeliveryManService from '../../services/deliverymen/UpdateDeliveryManService';
 import DeleteDeliveryManService from '../../services/deliverymen/DeleteDeliveryManService';
 
+interface IListDelivermen {
+  product_name?: string;
+  page: number;
+  limit: number;
+}
+
 class DeliverymenController {
-  public async index(_request: Request, response: Response): Promise<Response> {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { q: deliveryman_name, page = 1, limit = 5 } = request.query;
+
     const listDeliverymen = new ListDeliverymenService();
 
-    const deliverymen = await listDeliverymen.execute();
+    const {
+      deliverymen,
+      current_page,
+      page_count,
+      per_page,
+      total_items,
+      total_pages,
+    } = await listDeliverymen.execute({
+      deliveryman_name,
+      page: Number(page),
+      limit: Number(limit),
+    } as IListDelivermen);
 
-    return response.status(200).json(deliverymen);
+    return response.status(200).json({
+      deliverymen,
+      current_page,
+      page_count,
+      per_page,
+      total_items,
+      total_pages,
+    });
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
