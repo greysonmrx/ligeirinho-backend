@@ -81,7 +81,7 @@ class createDeliveries1595314792954 implements MigrationInterface {
       new TableForeignKey({
         columnNames: ['deliveryman_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'deliveryman',
+        referencedTableName: 'deliverymen',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       }),

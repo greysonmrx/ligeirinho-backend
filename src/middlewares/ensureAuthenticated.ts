@@ -11,9 +11,9 @@ interface TokenPayload {
   sub: string;
 }
 
-export default function ensureAuthenticated(
+function ensureAuthenticated(
   request: Request,
-  response: Response,
+  _response: Response,
   next: NextFunction,
 ): void {
   const authHeader = request.headers.authorization;
@@ -38,3 +38,5 @@ export default function ensureAuthenticated(
     throw new AppError('Token inválido.', 401);
   }
 }
+
+export default ensureAuthenticated;

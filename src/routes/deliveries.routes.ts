@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import DeliveriesController from '../controllers/DeliveriesController';
+import DeliveriesController from '../controllers/delivery/DeliveriesController';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
@@ -10,7 +10,7 @@ const deliveriesController = new DeliveriesController();
 deliveriesRouter.use(ensureAuthenticated);
 deliveriesRouter.get('/', deliveriesController.index);
 deliveriesRouter.post('/', deliveriesController.store);
-deliveriesRouter.delete('/:id', deliveriesController.destroy);
-deliveriesRouter.put('/:id', deliveriesController.update);
+deliveriesRouter.delete('/:delivery_id', deliveriesController.destroy);
+deliveriesRouter.put('/:delivery_id', deliveriesController.update);
 
 export default deliveriesRouter;

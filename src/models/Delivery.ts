@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import File from './File';
-import Deliveryman from './Deliveryman';
+import Deliveryman from './DeliveryMan';
 import Recipient from './Recipient';
 
 @Entity('deliveries')

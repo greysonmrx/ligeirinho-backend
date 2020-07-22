@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import UsersController from '../controllers/UsersController';
+import UsersController from '../controllers/users/UsersController';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 

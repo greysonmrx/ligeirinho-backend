@@ -10,8 +10,8 @@ import {
 
 import File from './File';
 
-@Entity('deliveryman')
-class Deliveryman {
+@Entity('deliverymen')
+class DeliveryMan {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -35,4 +35,4 @@ class Deliveryman {
   updated_at: Date;
 }
 
-export default Deliveryman;
+export default DeliveryMan;
