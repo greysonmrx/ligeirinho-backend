@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import ListRecipientService from '../../services/recipients/ListRecipientService';
 import ListRecipientsService from '../../services/recipients/ListRecipientsService';
 import CreateRecipientService from '../../services/recipients/CreateRecipientService';
 import UpdateRecipientService from '../../services/recipients/UpdateRecipientService';
@@ -11,6 +12,16 @@ interface IListRecipients {
 }
 
 class RecipientsController {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { recipient_id } = request.params;
+
+    const listRecipient = new ListRecipientService();
+
+    const recipient = await listRecipient.execute(recipient_id);
+
+    return response.status(200).json(recipient);
+  }
+
   public async index(request: Request, response: Response): Promise<Response> {
     const { q: recipient_name, page = 1, limit = 5 } = request.query;
 
