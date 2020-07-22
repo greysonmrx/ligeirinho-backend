@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import ListDeliveryManService from '../../services/deliverymen/ListDeliveryManService';
 import ListDeliverymenService from '../../services/deliverymen/ListDeliverymenService';
 import CreateDeliveryManService from '../../services/deliverymen/CreateDeliveryManService';
 import UpdateDeliveryManService from '../../services/deliverymen/UpdateDeliveryManService';
@@ -12,6 +13,16 @@ interface IListDelivermen {
 }
 
 class DeliverymenController {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { deliveryman_id } = request.params;
+
+    const listDeliveryMan = new ListDeliveryManService();
+
+    const deliveryMan = await listDeliveryMan.execute(deliveryman_id);
+
+    return response.status(200).json(deliveryMan);
+  }
+
   public async index(request: Request, response: Response): Promise<Response> {
     const { q: deliveryman_name, page = 1, limit = 5 } = request.query;
 

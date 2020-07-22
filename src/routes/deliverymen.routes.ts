@@ -8,6 +8,7 @@ const deliverymenRouter = Router();
 const deliverymenController = new DeliverymenController();
 
 deliverymenRouter.use(ensureAuthenticated);
+deliverymenRouter.get('/:deliveryman_id', deliverymenController.show);
 deliverymenRouter.get('/', deliverymenController.index);
 deliverymenRouter.post('/', deliverymenController.store);
 deliverymenRouter.delete('/:deliveryman_id', deliverymenController.destroy);
