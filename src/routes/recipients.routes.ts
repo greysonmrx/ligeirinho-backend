@@ -8,6 +8,7 @@ const recipientsRouter = Router();
 const recipientController = new RecipientsController();
 
 recipientsRouter.use(ensureAuthenticated);
+recipientsRouter.get('/', recipientController.index);
 recipientsRouter.post('/', recipientController.store);
 recipientsRouter.put('/:recipient_id', recipientController.update);
 

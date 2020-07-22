@@ -1,9 +1,44 @@
 import { Request, Response } from 'express';
 
+import ListRecipientsService from '../../services/recipients/ListRecipientsService';
 import CreateRecipientService from '../../services/recipients/CreateRecipientService';
 import UpdateRecipientService from '../../services/recipients/UpdateRecipientService';
 
+interface IListRecipients {
+  recipient_name?: string;
+  page: number;
+  limit: number;
+}
+
 class RecipientsController {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { q: recipient_name, page = 1, limit = 5 } = request.query;
+
+    const listRecipients = new ListRecipientsService();
+
+    const {
+      recipients,
+      page_count,
+      total_pages,
+      current_page,
+      total_items,
+      per_page,
+    } = await listRecipients.execute({
+      recipient_name,
+      page: Number(page),
+      limit: Number(limit),
+    } as IListRecipients);
+
+    return response.status(200).json({
+      recipients,
+      page_count,
+      total_pages,
+      current_page,
+      total_items,
+      per_page,
+    });
+  }
+
   public async store(request: Request, response: Response): Promise<Response> {
     const {
       name,
