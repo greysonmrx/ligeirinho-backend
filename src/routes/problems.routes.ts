@@ -9,5 +9,6 @@ const problemsController = new ProblemsController();
 
 problemsRouter.post('/:delivery_id', problemsController.store);
 problemsRouter.use(ensureAuthenticated);
+problemsRouter.get('/', problemsController.index);
 
 export default problemsRouter;
