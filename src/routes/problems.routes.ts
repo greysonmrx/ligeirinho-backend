@@ -11,5 +11,9 @@ problemsRouter.post('/:delivery_id', problemsController.store);
 problemsRouter.use(ensureAuthenticated);
 problemsRouter.get('/:delivery_id', problemsController.show);
 problemsRouter.get('/', problemsController.index);
+problemsRouter.delete(
+  '/:problem_id/cancel-delivery',
+  problemsController.destroy,
+);
 
 export default problemsRouter;
