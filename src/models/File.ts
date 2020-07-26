@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Expose } from 'class-transformer';
 
 @Entity('files')
 class File {
@@ -22,6 +23,13 @@ class File {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  url: string;
+
+  @Expose({ name: 'url' })
+  getAvatarUrl(): string {
+    return `http://192.168.100.52:5000/files/${this.path}`;
+  }
 }
 
 export default File;

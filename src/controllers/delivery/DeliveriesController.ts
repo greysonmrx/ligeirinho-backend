@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import ListDeliveryService from '../../services/delivery/ListDeliveryService';
 import ListDeliveriesService from '../../services/delivery/ListDeliveriesService';
 import DeleteDeliveryService from '../../services/delivery/DeleteDeliveryService';
 import CreateDeliveryService from '../../services/delivery/CreateDeliveryService';
@@ -7,13 +8,24 @@ import UpdateDeliveryService from '../../services/delivery/UpdateDeliveryService
 
 interface IListDeliveries {
   product_name?: string;
+  status?: string;
   page: number;
   limit: number;
 }
 
 class DeliveriesController {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { delivery_id } = request.params;
+
+    const listDelivery = new ListDeliveryService();
+
+    const delivery = await listDelivery.execute(delivery_id);
+
+    return response.status(200).json(delivery);
+  }
+
   public async index(request: Request, response: Response): Promise<Response> {
-    const { q: product_name, page = 1, limit = 5 } = request.query;
+    const { q: product_name, page = 1, limit = 5, status } = request.query;
 
     const listDeliveries = new ListDeliveriesService();
 
@@ -28,6 +40,7 @@ class DeliveriesController {
       product_name,
       page: Number(page),
       limit: Number(limit),
+      status,
     } as IListDeliveries);
 
     return response.status(200).json({

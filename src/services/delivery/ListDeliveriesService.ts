@@ -1,4 +1,5 @@
-import { getCustomRepository, Like } from 'typeorm';
+import { getCustomRepository, Like, Equal } from 'typeorm';
+import { classToClass } from 'class-transformer';
 
 import DeliveriesRepository from '../../repositories/DeliveriesRepository';
 
@@ -6,6 +7,7 @@ import Delivery from '../../models/Delivery';
 
 interface Request {
   product_name?: string;
+  status?: string;
   page: number;
   limit: number;
 }
@@ -22,26 +24,36 @@ interface Response {
 class ListDeliveriesService {
   public async execute({
     product_name,
+    status,
     page,
     limit,
   }: Request): Promise<Response> {
     const deliveriesRepository = getCustomRepository(DeliveriesRepository);
 
-    let where = {};
+    const where = {};
 
     if (product_name) {
-      where = { product: Like(`%${product_name}%`) };
+      Object.assign(where, { product: Like(`%${product_name}%`) });
+    }
+
+    if (status) {
+      Object.assign(where, { status: Equal(status) });
     }
 
     const [deliveries, count] = await deliveriesRepository.findAndCount({
       where,
       skip: page * limit - limit,
       take: limit,
-      relations: ['recipient', 'deliveryman', 'signature'],
+      relations: [
+        'recipient',
+        'deliveryman',
+        'deliveryman.avatar',
+        'signature',
+      ],
     });
 
     return {
-      deliveries,
+      deliveries: classToClass(deliveries),
       page_count: deliveries.length,
       current_page: page,
       per_page: limit,
