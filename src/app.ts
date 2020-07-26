@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import express, { Express, Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import { resolve } from 'path';
 
 import routes from './routes';
 import createConnection from './database';
@@ -23,6 +24,10 @@ class App {
   private middlewares(): void {
     this.server.use(cors());
     this.server.use(express.json());
+    this.server.use(
+      '/files',
+      express.static(resolve(__dirname, '..', 'tmp', 'uploads')),
+    );
   }
 
   private routes(): void {

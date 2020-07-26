@@ -1,18 +1,40 @@
-{
-  "type": "postgres",
-  "host": "127.0.0.1",
-  "port": "5432",
-  "username": "postgres",
-  "password": "docker",
-  "database": "eagle",
-  "uuidExtension": "uuid-ossp",
-  "entities": [
-    "./src/models/*.ts"
-  ],
-  "migrations": [
-    "./src/database/migrations/*.ts"
-  ],
-  "cli": {
-    "migrationsDir": "./src/database/migrations"
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "username": "postgres",
+    "password": "docker",
+    "database": "eagle",
+    "uuidExtension": "uuid-ossp",
+    "entities": [
+      "./src/models/*.ts"
+    ],
+    "migrations": [
+      "./src/database/migrations/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/database/migrations"
+    }
+  },
+  {
+    "name": "seed",
+    "type": "postgres",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "username": "postgres",
+    "password": "docker",
+    "database": "eagle",
+    "uuidExtension": "uuid-ossp",
+    "entities": [
+      "./src/models/*.ts"
+    ],
+    "migrations": [
+      "./src/database/seeds/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/database/seeds"
+    }
   }
-}
+]
