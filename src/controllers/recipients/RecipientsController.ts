@@ -4,6 +4,7 @@ import ListRecipientService from '../../services/recipients/ListRecipientService
 import ListRecipientsService from '../../services/recipients/ListRecipientsService';
 import CreateRecipientService from '../../services/recipients/CreateRecipientService';
 import UpdateRecipientService from '../../services/recipients/UpdateRecipientService';
+import DeleteRecipientService from '../../services/recipients/DeleteRecipientService';
 
 interface IListRecipients {
   recipient_name?: string;
@@ -103,6 +104,19 @@ class RecipientsController {
     });
 
     return response.status(200).json(recipient);
+  }
+
+  public async destroy(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { recipient_id } = request.params;
+
+    const deleteDelivery = new DeleteRecipientService();
+
+    await deleteDelivery.execute(recipient_id);
+
+    return response.status(204).json();
   }
 }
 
