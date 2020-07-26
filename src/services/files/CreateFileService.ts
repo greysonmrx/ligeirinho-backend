@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+import { classToClass } from 'class-transformer';
 
 import FilesRepository from '../../repositories/FilesRepository';
 
@@ -25,7 +26,7 @@ class CreateFileService {
 
     await filesRepository.save(file);
 
-    return file;
+    return classToClass(file);
   }
 }
 

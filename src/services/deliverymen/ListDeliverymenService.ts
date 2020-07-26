@@ -1,4 +1,5 @@
 import { getCustomRepository, Like } from 'typeorm';
+import { classToClass } from 'class-transformer';
 
 import DeliverymenRepository from '../../repositories/DeliverymenRepository';
 
@@ -35,11 +36,13 @@ class ListDeliverymenService {
 
     const [deliverymen, count] = await deliverymenRepository.findAndCount({
       where,
+      skip: page * limit - limit,
+      take: limit,
       relations: ['avatar'],
     });
 
     return {
-      deliverymen,
+      deliverymen: classToClass(deliverymen),
       page_count: deliverymen.length,
       total_pages: Math.ceil(count / limit),
       current_page: page,

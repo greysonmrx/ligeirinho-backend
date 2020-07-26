@@ -26,6 +26,7 @@ class ListPendingDeliveriesService {
         deliveryman_id,
         signature_id: null,
         canceled_at: null,
+        start_date: null,
       },
       relations: ['recipient', 'deliveryman', 'signature'],
     });

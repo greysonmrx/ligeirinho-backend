@@ -35,6 +35,8 @@ class ListRecipientsService {
 
     const [recipients, count] = await recipientsRepository.findAndCount({
       where,
+      skip: page * limit - limit,
+      take: limit,
     });
 
     return {

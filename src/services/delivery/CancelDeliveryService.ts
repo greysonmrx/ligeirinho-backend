@@ -23,7 +23,11 @@ class CancelDeliveryService {
       throw new AppError('Encomenda não encontrada.', 404);
     }
 
-    await deliveriesRepository.save({ ...delivery, canceled_at: new Date() });
+    await deliveriesRepository.save({
+      ...delivery,
+      status: 'CANCELADA',
+      canceled_at: new Date(),
+    });
   }
 }
 
