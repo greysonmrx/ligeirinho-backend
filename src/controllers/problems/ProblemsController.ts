@@ -17,11 +17,30 @@ class ProblemsController {
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
+    const { page = 1, limit = 5 } = request.query;
+
     const listProblems = new ListProblemsService();
 
-    const problems = await listProblems.execute();
+    const {
+      problems,
+      page_count,
+      current_page,
+      per_page,
+      total_items,
+      total_pages,
+    } = await listProblems.execute({
+      page: Number(page),
+      limit: Number(limit),
+    });
 
-    return response.status(200).json(problems);
+    return response.status(200).json({
+      problems,
+      page_count,
+      current_page,
+      per_page,
+      total_items,
+      total_pages,
+    });
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
