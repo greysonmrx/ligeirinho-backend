@@ -18,6 +18,7 @@
 </p>
 
 <div align="center">
+<a href="https://insomnia.rest/run/?label=Ligeirinho&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fgreysonmrx%2Fligeirinho-backend%2Fmaster%2F.github%2Finsomnia.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 </div>
 
 ## :rocket: Technologies
