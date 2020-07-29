@@ -7,8 +7,8 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 const deliverymenRouter = Router();
 const deliverymenController = new DeliverymenController();
 
-deliverymenRouter.use(ensureAuthenticated);
 deliverymenRouter.get('/:deliveryman_id', deliverymenController.show);
+deliverymenRouter.use(ensureAuthenticated);
 deliverymenRouter.get('/', deliverymenController.index);
 deliverymenRouter.post('/', deliverymenController.store);
 deliverymenRouter.delete('/:deliveryman_id', deliverymenController.destroy);
