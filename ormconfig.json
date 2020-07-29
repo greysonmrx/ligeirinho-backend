@@ -6,7 +6,7 @@
     "port": "5432",
     "username": "postgres",
     "password": "docker",
-    "database": "eagle",
+    "database": "ligeirinho",
     "uuidExtension": "uuid-ossp",
     "entities": [
       "./src/models/*.ts"
@@ -25,7 +25,7 @@
     "port": "5432",
     "username": "postgres",
     "password": "docker",
-    "database": "eagle",
+    "database": "ligeirinho",
     "uuidExtension": "uuid-ossp",
     "entities": [
       "./src/models/*.ts"
